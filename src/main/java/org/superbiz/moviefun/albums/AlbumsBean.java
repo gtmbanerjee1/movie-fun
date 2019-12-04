@@ -16,21 +16,36 @@
  */
 package org.superbiz.moviefun.albums;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.superbiz.moviefun.DatabaseServiceCredentials;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 public class AlbumsBean {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    //@PersistenceContext
+    //@PersistenceUnit(unitName="albumPersistenceUnit")
+    //EntityManagerFactory entityManagerFactory;
 
-    @Transactional
+    @PersistenceContext(unitName="albumPersistenceUnit")
+    EntityManager entityManager;
+
+
+
+
     public void addAlbum(Album album) {
         entityManager.persist(album);
     }
